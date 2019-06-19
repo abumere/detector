@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="95caa3ce-22e6-455f-8988-8e249dd5dba3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/detector/geo/GeoLite2-Country.mmdb" beforeDir="false" />
-    </list>
+    <list default="true" id="95caa3ce-22e6-455f-8988-8e249dd5dba3" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,24 +168,6 @@
               <item name="superman-detector" type="462c0819:PsiDirectoryNode" />
               <item name="detector" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="superman-detector" type="b2602c69:ProjectViewProjectNode" />
-              <item name="superman-detector" type="462c0819:PsiDirectoryNode" />
-              <item name="detector" type="462c0819:PsiDirectoryNode" />
-              <item name="geo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="superman-detector" type="b2602c69:ProjectViewProjectNode" />
-              <item name="superman-detector" type="462c0819:PsiDirectoryNode" />
-              <item name="detector" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="superman-detector" type="b2602c69:ProjectViewProjectNode" />
-              <item name="superman-detector" type="462c0819:PsiDirectoryNode" />
-              <item name="detector" type="462c0819:PsiDirectoryNode" />
-              <item name="travel" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -203,6 +183,7 @@
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/detector/haversin" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
