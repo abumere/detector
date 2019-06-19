@@ -74,11 +74,8 @@ func parsePostBody(reqBody io.ReadCloser) loginRecord {
 }
 
 func getTravelSpeed(postLogin, prevLogin  models.Login) int {
-
 	//Calc distance between prev login and current
 	dist := travel.Distance(postLogin.Lat,postLogin.Lon,prevLogin.Lat,prevLogin.Lon)
-	//fromDist := travel.Distance(loginRow.Lat,loginRow.Lon,postLogin.Lat,postLogin.Lon)
-	//fmt.Println("distance to from login: ", fromDist * 0.00062137)
 	speed := travel.Speed(dist, prevLogin.UnixTimestamp, postLogin.UnixTimestamp)
 	return speed
 }
@@ -90,7 +87,7 @@ func (env *Env) handlePost(rw http.ResponseWriter, request *http.Request) {
 	ip := net.ParseIP(lr.IPAddr)
 	record, err := env.geoDB.City(ip)
 	if err != nil {
-		panic(err)    // Turn into http error 500's
+		panic(err)
 	}
 
 	cg := currentGeo{
@@ -129,12 +126,15 @@ func (env *Env) handlePost(rw http.ResponseWriter, request *http.Request) {
 
 	repOutput := map[string]interface{}{
 		"currentGeo": cg,
+
 	}
 
 	if len(prevLogin.Username) != 0 {
 		speed := getTravelSpeed(prevLogin, loginRow)
 		if speed > 500 {
 			repOutput["travelToCurrentGeoSuspicious"] = true
+		} else {
+			repOutput["travelToCurrentGeoSuspicious"] = false
 		}
 
 		repOutput["precedingIpAccess"] = ipAccess{
@@ -151,6 +151,8 @@ func (env *Env) handlePost(rw http.ResponseWriter, request *http.Request) {
 		speed := getTravelSpeed(postLogin, loginRow)
 		if speed > 500 {
 			repOutput["travelFromCurrentGeoSuspicious"] = true
+		} else {
+			repOutput["travelFromCurrentGeoSuspicious"] = false
 		}
 
 		repOutput["subsequentIpAccess"] = ipAccess{
