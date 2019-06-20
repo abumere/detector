@@ -2,6 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"detector/geo"
+	"detector/models"
+	"detector/travel"
 	"encoding/json"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
@@ -11,9 +14,6 @@ import (
 	"net"
 	"net/http"
 	"regexp"
-	"superman-detector/detector/geo"
-	"superman-detector/detector/models"
-	"superman-detector/detector/travel"
 )
 
 
