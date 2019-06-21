@@ -7,6 +7,7 @@ import (
 	"detector/travel"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/oschwald/geoip2-golang"
 	"io"
@@ -16,6 +17,7 @@ import (
 	"regexp"
 )
 
+// Main detector app file
 
 type loginRecord struct {
 	Username      string `json:"username"`
@@ -73,6 +75,7 @@ func parsePostBody(reqBody io.ReadCloser) loginRecord {
 	return lr
 }
 
+// Calculates the speed 'traveled' given two login structs
 func getTravelSpeed(postLogin, prevLogin  models.Login) int {
 	//Calc distance between prev login and current
 	dist := travel.Distance(postLogin.Lat,postLogin.Lon,prevLogin.Lat,prevLogin.Lon)
@@ -80,7 +83,10 @@ func getTravelSpeed(postLogin, prevLogin  models.Login) int {
 	return speed
 }
 
-func (env *Env) handlePost(rw http.ResponseWriter, request *http.Request) {
+
+// The main method handle for the post req. Takes the req body, parses into json and
+// saved the needed infomation.
+func (env *Env) HandlePost(rw http.ResponseWriter, request *http.Request) {
 	//Parse and validate post query input values
 	var lr = parsePostBody(request.Body)
 
@@ -122,6 +128,7 @@ func (env *Env) handlePost(rw http.ResponseWriter, request *http.Request) {
 		"currentGeo": cg,
 	}
 
+	// Check to see if there are any subsequent or preceding logins in the db
 	if len(prevLogin.Username) != 0 {
 		speed := getTravelSpeed(prevLogin, loginRow)
 		if speed > 500 {
@@ -177,7 +184,9 @@ func main() {
 
 	env := &Env{ loginDB: loginDB, geoDB: geoDB	}
 
-	http.HandleFunc("/v1/", env.handlePost)
-	http.ListenAndServe(":8080", nil)
+	router := mux.NewRouter()
+	router.HandleFunc("/v1/", env.HandlePost).Methods("POST")
+	fmt.Println("Running server")
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
