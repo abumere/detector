@@ -118,15 +118,8 @@ func (env *Env) handlePost(rw http.ResponseWriter, request *http.Request) {
 	//Get preceding and subsequent logins if applicable
 	prevLogin, postLogin := models.GetAdjacentLogins(allLogins, loginRow)
 
-	//fmt.Printf("Pre: %+v\n", prevLogin)
-	//fmt.Printf("Current: %+v\n", loginRow)
-	//fmt.Printf("Post: %+v\n", postLogin)
-	//fmt.Println("\n\n")
-
-
 	repOutput := map[string]interface{}{
 		"currentGeo": cg,
-
 	}
 
 	if len(prevLogin.Username) != 0 {

@@ -1,9 +1,7 @@
 package travel
 
 import (
-	"fmt"
 	"math"
-	"time"
 )
 ////////////////////////////
 ////////////////////////////
@@ -38,23 +36,4 @@ func Distance(lat1, lon1, lat2, lon2 float64) float64 {
 	h := hsin(la2-la1) + math.Cos(la1)*math.Cos(la2)*hsin(lo2-lo1)
 
 	return 2 * r * math.Asin(math.Sqrt(h))
-}
-
-func Speed(distance float64, startT, endT int64) int {
-	distInMiles := distance *  0.00062137
-	startTime := time.Unix(startT, 0)
-	endTime := time.Unix(endT, 0)
-	speed := distInMiles/math.Abs(endTime.Sub(startTime).Hours())
-
-	//fmt.Println("Start Time: ", startTime)
-	//fmt.Println("End Time: ", endTime)
-	fmt.Println("Distance in Miles: ", distInMiles)
-	fmt.Println("Time Difference: ", math.Abs(endTime.Sub(startTime).Hours()) )
-	fmt.Println("Speed: ", int(speed), " miles per hour")
-
-	//newPreceedingTime := time.Unix(1514764800,0).Add(time.Hour * -24).Add(time.Minute * -18).Add(time.Second * -41)
-	//fmt.Println("New Time: ", newPreceedingTime.Unix())
-	//fmt.Println("Difference between the two hours: ", endTime.Sub(startTime).Hours())
-	return int(speed)
-
 }
