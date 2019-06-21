@@ -105,7 +105,7 @@ or not, as well as the speed.
 - [MaxMind City Database Data](https://dev.maxmind.com/geoip/geoip2/geolite2/): Publically available city geolocation data 
 - [geoip2-golang](https://github.com/oschwald/geoip2-golang): A MaxMind GeoIP2 Reader for Go
 - [go-sqlite3](https://github.com/mattn/go-sqlite3): sqlite3 driver for go using database/sql
-- [travel/travel.go](https://gist.github.com/cdipaolo/d3f8db3848278b49db68): The used to calculate distance using the Haversin Formula 
+- [travel/travel.go](https://gist.github.com/cdipaolo/d3f8db3848278b49db68): Used to calculate distance using the Haversin Formula 
 
 ## Potential Bugs in Coding Challenge Discription
 The following points are things in the coding challenge description that I believe to be bugs. I made certain assumptions around most points in order to finsih the project. 
