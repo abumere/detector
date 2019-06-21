@@ -43,20 +43,14 @@ If you followed the alternative installation step then you can do the following
 cd detector
 ./detector
 ```
-
+##
 ## Usage
 
 Detector accepts input through POST requests and returns outputs through http response
 
 You can send data through the curl command: 
 ```bash
-import foobar
-
-$ curl -X POST -d
-'{"username": "bob",
-"unix_timestamp": 1514764800,
-"event_uuid": "85ad929a-db03-4bf4-9541-8f728fa12e42",
-"ip_address": "206.81.252.6"}' http://localhost:8080/v1/
+$ curl -X POST -d '{"username": "bob", "unix_timestamp": 1514764800, "event_uuid": "85ad929a-db03-4bf4-9541-8f728fa12e42", "ip_address": "206.81.252.6"}' http://localhost:8080/v1/
 ```
 Alternatively you can use a tool like [Postman](https://www.getpostman.com/downloads/) to send POST requests
 
@@ -72,6 +66,45 @@ The POST must contain a properly formatted JSON object as a string. The fields a
 | ip_address        | YES        |    IPv4       |
 
 
+##
+## Expected Results 
+In response to the above POST request, your API should return a JSON document informing
+the client about the geo information for the current IP access event as well as the nearest
+previous and subsequent events (if they exist). For the preceding/subsequent events, it should
+also include a field suspiciousTravel indicating whether travel to/from that geo is suspicious
+or not, as well as the speed.
+```bash
+{  
+   "currentGeo":{  
+      "lat":39.1702,
+      "lon":-76.8538,
+      "radius":20
+   },
+   “travelToCurrentGeoSuspicious”:true,
+   “travelFromCurrentGeoSuspicious”:false,
+   "precedingIpAccess":{  
+      "ip":"24.242.71.20",
+      "speed":55,
+      "lat":30.3764,
+      "lon":-97.7078,
+      "radius":5,
+      "timestamp":1514764800
+   },
+   "subsequentIpAccess":{  
+      "ip":"91.207.175.104",
+      "speed":27600,
+      "lat":34.0494,
+      "lon":-118.2641,
+      "radius":200,
+      "timestamp":1514851200
+   }
+}
+```
+
+## Potential Bugs in Coding Challenge Discription
+The following points are things in the coding challenge description that I believe to be bugs. I made certain assumptions around most points in order to finsih the project. 
+- In the expected result the precedingIpAccess timestamp is the same as the timestamp from the POST request. If its preceeding then it should be an date futher back
+- In the expected result the subsequentIpAccess has a speed of 27600 which seems to be incorrect. I believe this is becuase the subsequentIpAccess has an IP of 91.207.175.104 which should make the distance from the currentGeo point about 2300 miles. The timestamp of the subsequentIpAccess is 1514851200. This means that there is only a 24 hour time difference between the currentGeo login and the subsequent one. Given the distance between the two points and the time elapsed the distance speed should be about 96 miles an hour. 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
